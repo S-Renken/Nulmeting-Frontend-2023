@@ -7,19 +7,28 @@ export const useTodolist = defineStore("counter", {
 
   actions: {
     apiCall() {
-      Promise.resolve(getEnvironmentData())
-        .then((data) => this.tryPush(data));
-    },
-    tryPush(todo: Todo) {
-      if (this.todoList.some(t => t.id == todo.id)) {
-        this.apiCall()
-      }
-      else {
-        this.todoList.push(todo)
-      }
+      this.todoList = TryAddNewTodo(this.todoList, 20);
     }
   }
 });
+
+function TryAddNewTodo(
+  curTodoList: Array<Todo>,
+  apiCallTries: number
+): Array<Todo> {
+  if (apiCallTries > 0) {
+    Promise.resolve(getEnvironmentData())
+      .then((todo) => {
+        if (!curTodoList.some(t => t.id == todo.id)) {
+          curTodoList.push(todo)
+        }
+        else {
+          TryAddNewTodo(curTodoList, apiCallTries - 1);
+        }
+      });
+  }
+  return curTodoList
+}
 
 function getEnvironmentData(): Promise<Todo> {
   let config = {
