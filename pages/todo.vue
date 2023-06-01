@@ -6,15 +6,16 @@
         <div>
           <NuxtLink to="/">Home</NuxtLink>
         </div>
-        <br>
-        <br>
-        <LevButton @clicked="cnt.apiCall(); ">
-          MAKE API CALL
-        </LevButton>
 
-        <br><br>
-        <BTable></BTable>
-        <br><br>
+        <p>
+          <LevButton @clicked="todolist.apiCall">
+            MAKE API CALL
+          </LevButton>
+        </p>
+
+        <p>
+          <BTable></BTable>
+        </p>
 
       </div>
     </div>
@@ -23,6 +24,6 @@
 
 <script setup lang="ts">
 
-const cnt = useTodolist();
+const todolist = useTodolist();
 
 </script>

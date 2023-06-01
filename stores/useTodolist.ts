@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const useTodolist = defineStore("counter", {
   state: () => ({
-    todoList: []
+    todoList: [] as Array<Todo>
   }),
 
   actions: {
